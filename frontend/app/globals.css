@@ -46,7 +46,8 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-:root {
+:root,
+html {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -81,7 +82,8 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+.dark,
+html.dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -121,5 +123,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Ensure portaled dropdown/popover content uses theme variables (inherited from html) */
+@layer base {
+  .bg-popover {
+    background-color: var(--popover);
+  }
+  .text-popover-foreground {
+    color: var(--popover-foreground);
   }
 }
