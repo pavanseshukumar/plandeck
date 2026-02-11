@@ -19,7 +19,7 @@ const NOTES_PREVIEW_LENGTH = 60;
  * @param {'focus' | 'active' | 'parked' | 'completed'} props.state
  * @param {boolean} props.completed
  * @param {() => void} props.onComplete
- * @param {{ label: string, onSelect: () => void }[]} props.moveOptions - options to move task to another state (exclude current)
+ * @param {{ label: string, onSelect: () => void, disabled?: boolean }[]} props.moveOptions - options to move task to another state (exclude current)
  */
 export function TaskItem({
   task,
@@ -90,10 +90,16 @@ export function TaskItem({
             {moveOptions.map((option) => (
               <DropdownMenuItem
                 key={option.label}
+                disabled={option.disabled}
                 onSelect={(e) => {
                   e.preventDefault();
-                  option.onSelect();
+                  if (!option.disabled) {
+                    option.onSelect();
+                  }
                 }}
+                className={cn(
+                  option.disabled && "text-muted-foreground/60 cursor-not-allowed"
+                )}
               >
                 {option.label}
               </DropdownMenuItem>
